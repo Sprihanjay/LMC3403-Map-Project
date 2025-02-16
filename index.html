@@ -5,73 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Map with Article</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <style>
-            body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        height: 100vh;
-        overflow: hidden; /* Prevent entire page from scrolling */
-    }
-
-    .container {
-        display: flex;
-        width: 100%;
-        height: 100vh; /* Full height */
-    }
-
-    .left-side {
-        width: 30%;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto; /* Allows scrolling */
-        height: 100vh; /* Ensures it fills height */
-    }
-
-    .article {
-        flex-grow: 1;
-        padding-bottom: 20px;
-    }
-
-    .timeline-box {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 80%;
-        background-color: #f4f4f4;
-        padding: 20px;
-        border-radius: 8px;
-    }
-
-    .timeline-arrow {
-        font-size: 2rem;
-        cursor: pointer;
-    }
-
-    .map-container {
-        margin-top: 30px; /* Keeps it in place */
-        width: 70%;
-        height: 100vh;
-        position: sticky;
-        
-    }
-
-    #map {
-        width: 100%;
-        height: 100%;
-    }
-
-    .timeline-content {
-        margin-top: 20px;
-    }
-
-    #timeline-year {
-        color: red;
-    }
-
-        </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -80,20 +14,15 @@
     <div class="left-side">
         <!-- Article Section -->
         <div class="article">
-            
-        
             <h2>Explore Black-owned farms that received the Centennial Award</h2>
             <p>The Georgia Centennial Farm Program was developed in 1993 to distinguish family farms that have contributed to preserving Georgia's
                 agricultural history. To apply for the award, farms must be at least 100 years old, at least 10 acres, and earn an annual income of at least $1,000. 
                 The markers on the map are the African American-owned farms that have received an award from the Georgia Centennial Farm Program. The red markers are
                 recipients of the Centennial Family Farm Award, while the blue marker [need to add these] is a recipient of the Centennial Heritage Farm Award.</p>
             <h3>Click on the map points or scroll through the awards timeline to learn more about each location</h3>
-        
             <p>Sources: </p>
             <a href="https://dca.georgia.gov/community-assistance/historic-preservation/centennial-farms-program">https://dca.georgia.gov/community-assistance/historic-preservation/centennial-farms-program</a>
             <a href="https://blackfarmersnetwork.com/nourishing-roots-the-enduring-significance-of-centennial-farms/">https://blackfarmersnetwork.com/nourishing-roots-the-enduring-significance-of-centennial-farms/</a>
-            
-        
         </div>
 
         <!-- Timeline Section -->
@@ -116,144 +45,7 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script>
-    var map = L.map('map').setView([32.1574, -82.9071], 7); // Georgia coordinates
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Define yellow and red icons
-    var yellowIcon = L.icon({
-        iconUrl: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
-    });
-
-    var redIcon = L.icon({
-        iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
-    });
-
-    var locations = [
-        { coords: [30.8730, -83.5497], title: "Brooks County: John Rountree & Emma Jane Rountree Farm", img: "location1.jpg", desc: "John Willis Rountree, a skilled carpenter and farmer, purchased the land of what eventually became Rountree farm from James E. Henry in 1891. By 1930, the farm housed horses, mules, tobacco, a cotton house, a smokehouse, and water wells. Half of the farm was utilized as a timber reserve, while the remaining acres were used to produce crops like peaches, vegetables, pecans, corn, and tobacco.The John & Emma Jane Rountree Farm was the first African American family to receive the Centennial Family Farm Award in 1994. As of 2001, the farm is being taken care of by grandchildren and cousins.", year:  1994},
-        { coords: [31.8982, -84.1279], title: "Sumter County: Carranza Morgan’s Farm", img: "location2.jpg", desc: "Description for Location 2.", year: 1995 },
-        { coords: [32.0982, -84.3279], title: "Sumter County: Carranza Morgan’s Farm", img: "location2.jpg", desc: "Description for Location 2 (duplicate for heritage farm point).", year : 1996 },
-        { coords: [30.8417, -84.0473], title: "Thomas County: Lewis Clark Estate", img: "location3.jpg", desc: "Description for Location 3.", year: 2000 },
-        { coords: [31.5282, -83.8897], title: "Worth County: Rev. James Fowler Farm", img: "location4.jpg", desc: "Description for Location 4.", year: 2001 },
-        { coords: [32.4220, -83.6348], title: "Houston County: David Toomer Estate", img: "location5.jpg", desc: "Description for Location 5.", year: 2001 },
-        { coords: [33.2700, -82.9990], title: "Hancock County: Zach & Camillia Hubert", img: "location6.jpg", desc: "Description for Location 6.", year: 2002 },
-        { coords: [31.2008, -84.7316], title: "Miller County: L. and M. Kindler Farm", img: "location7.jpg", desc: "Description for Location 7.", year: 2005 },
-        { coords: [33.5794, -83.4644], title: "Morgan County: Charleston-Allen Farm", img: "location8.jpg", desc: "Description for Location 8.", year: 2010 },
-        { coords: [32.3596, -81.7787], title: "Bulloch County: Garfield Hall Farm", img: "location9.jpg", desc: "Description for Location 9.", year: 2010 },
-        { coords: [31.2624, -81.6035], title: "Glynn County: Gilliard Farm", img: "location10.jpg", desc: "Description for Location 10.", year: 2012 },
-        { coords: [30.8417, -83.8473], title: "Thomas County: Kentavia Williams", img: "location11.jpg", desc: "Description for Location 11.", year: 2013 },
-        { coords: [33.0888, -81.9535], title: "Burke County: Cooper Family Farm", img: "location12.jpg", desc: "Description for Location 12.", year: 2014 },
-        { coords: [31.5439, -84.2279], title: "Dougherty County: Titus Stephens Farm", img: "location13.jpg", desc: "Description for Location 13.", year: 2014 },
-        { coords: [33.3205, -82.0843], title: "Richmond County: Thompson Farms", img: "location14.jpg", desc: "Description for Location 14.", year: 2019 },
-        { coords: [32.8888, -82.0535], title: "Burke County: Gough Family Land, LLC.", img: "location15.jpg", desc: "Description for Location 15.", year: 2022 }
-    ];
-
-    var locations = [
-        { coords: [30.8730, -83.5497], title: "Brooks County: John Rountree & Emma Jane Rountree Farm", img: "location1.jpg", desc: "John Willis Rountree, a skilled carpenter and farmer, purchased the land of what eventually became Rountree farm from James E. Henry in 1891. By 1930, the farm housed horses, mules, tobacco, a cotton house, a smokehouse, and water wells. Half of the farm was utilized as a timber reserve, while the remaining acres were used to produce crops like peaches, vegetables, pecans, corn, and tobacco.The John & Emma Jane Rountree Farm was the first African American family to receive the Centennial Family Farm Award in 1994. As of 2001, the farm is being taken care of by grandchildren and cousins.", year:  1994 },
-        { coords: [31.8982, -84.1279], title: "Sumter County: Carranza Morgan’s Farm", img: "location2.jpg", desc: "The Morgan Centennial Farm, established in 1886 by former slave Nathan Morgan in Sumter County, Georgia, has remained a symbol of African American agricultural heritage. Recognized for its legacy, it received the Centennial Family Farm Award in 1995 and was listed in the National Register of Historic Places in 1998 and received the American Centennial Heritage Farms Award in 2001.", year: 1995 },
-        { coords: [32.0982, -84.3279], title: "Sumter County: Carranza Morgan’s Farm", img: "location2.jpg", desc: "Description for Location 2 (duplicate for heritage farm point).", year: 2001 },
-        { coords: [30.8417, -84.0473], title: "Thomas County: Lewis Clark Estate", img: "location3.jpg", desc: "The Lewis Clark farm was established in 1875 when Lewis Clark purchased fifty acres of land from James F. Brown. On the farm, he grew cotton, corn, sweet potatoes, sugar cane, and garden vegetables. In 1899, Lewis Clark passed away and willed the farm to his daughter, Lenary Clark Allen Williams. She continued to run the farm until her death in 1987, when the farm was passed down to her daughter, Essie Allen Spruel, the current owner of the farm.", year: 1996 },
-        { coords: [31.5282, -83.8897], title: "Worth County: Rev. James Fowler Farm", img: "location4.jpg", desc: "Rev. James Fowler is the third African American recipient of the Centennial Family Farm Award on October 6th, 2000. Reverend James Fowler received 202 acres of land from N.F. Mercer in 1888. He became one of the leading local cotton producers in the area. His descendants inherited and expanded the land over the next years. Juanita Fowler Miller (Rev. Fowler’s granddaughter) added peanuts, wheat, and soybeans to the existing cotton farm.", year: 2000 },
-        { coords: [32.4220, -83.6348], title: "Houston County: David Toomer Estate", img: "location5.jpg", desc: "Description for Location 5.", year: 2001 },
-        { coords: [33.2700, -82.9990], title: "Hancock County: Zach & Camillia Hubert", img: "location6.jpg", desc: "The Zach Hubert Farm, a Centennial Family Farm was established by a former slave, Zach Hubert. The land has stayed in his family for over a century and used for many different crops. It was listed in the National Register of Historic Places, and honors the legacy of Black farmers who fought to keep their land. It is known as a historical landmark and a working farm which shows the heritage of African American farmers in Georgia.", year: 2002 },
-        { coords: [31.2008, -84.7316], title: "Miller County: L. and M. Kindler Farm", img: "location7.jpg", desc: "The Kinder family farm was established by former slave Littleton Kinder after he bought approximately 240 acres from A. L. Brown. The farm has earned the Centennial Family Farm Award, and it is located near Colquitt in Miller County. The total farm size consists of pine and hardwood for reforestation efforts and crops such as corn, cotton, sugar cane, and peanuts. Kinder’s legacy stems from helping African Americans protect their farms during the Jim Crow era, since he was literate.", year: 2005 },
-        { coords: [33.5794, -83.4644], title: "Morgan County: Charleston-Allen Farm", img: "location8.jpg", desc: "The Charleston-Allen Farm was founded in 1890 by Anna Charleston. Charleston was enslaved 30 years prior and had received the land from her daughter Almaeda, whose father was a wealthy landowner. The farm produced cotton, corn, cattle, and pigs. Descendants of the Charleston family still owns the farm, and received the Georgia Centennial Family Awards in 2010.", year: 2010 },
-        { coords: [32.3596, -81.7787], title: "Bulloch County: Garfield Hall Farm", img: "location9.jpg", desc: "The Garfield Hall farm was acquired and founded in 1928. The owners began their ownership of the land in 1904 but officially in 1928 Garfeild Hall acquired the farm. It is owned by the Hall family who were one enslaved. The farm produced crops such as cotton, corn, tobacco, and peanuts. The family still owns the farm and uses the land for tree farming.", year: 2010 },
-        { coords: [31.2624, -81.6035], title: "Glynn County: Gilliard Farm", img: "location10.jpg", desc: "The Gilliard Farm was founded in 1874 by Jupiter Gilliard, a formerly enslaved man. The farm has since remained in the same family for over 100 years, recently receiving the Centennial Family Farm Award in 2012. Now owned by Althea and Matthew Raiford, who has transformed it into an organic farm, producing fruits, vegetables, and livestock while also operating a Community Supported Agriculture program.", year: 2012 },
-        { coords: [30.8417, -83.8473], title: "Thomas County: Kentavia Williams", img: "kentavia williams farm.jpg", desc: "The Kentavia Williams Farm in Thomas County is owned by Belle C. Williams and the Williams Family. The original 245 acres was purchased in 1883 by Charles Cockrill, the great grandfather of Belle Williams and the Williams heirs. In the past the farm grew corn, cotton, potatoes, sugar cane, and tobacco. African-American-owned farms are rare in Georgia and the Kentavia Williams Farm is only the 11th African-American Centennial Farm. Today, the major crops are corn, cotton, peanuts, and soybeans.", year: 2013 },
-        { coords: [33.0888, -81.9535], title: "Burke County: Cooper Family Farm", img: "location12.jpg", desc: "The Cooper Farm is an African American Centennial Farm that was originally purchased by Frank Cooper Sr. in 1885. Historically, the farm produced corn and cotton while also raising livestock. Also, a portion of the land is also rented out to local farmers. Over the years, the farm expanded greatly, nearly reaching over 200 acres. This farm is recognized as the 12th African American Centennial Farm in Georgia, showing examples of long-term Black land ownership despite historical challenges. Currently, the farm still operates to produce cotton and peanuts while maintaining strong ties to the McCanaan Missionary Baptist Church. Overall, the Cooper Farm demonstrates the family’s legacy and agricultural contributions.", year: 2014 },
-        { coords: [31.5439, -84.2279], title: "Dougherty County: Titus Stephens Farm", img: "location13.jpg", desc: "Titus Stephens, a family farm located in Dougherty, GA, has been recognized for its long standing contribution to the region’s farming heritage. The farm has been owned and operated by the Stephens family for over 100 years which precipitated it to be designated as a centennial farm by the Georgia Department of Natural Resources. The primary crops they harvest on this land include: peanuts, cotton, pecan, and tobacco. Through these efforts, the Stephens family farm was able to persevere through different uncertain time periods such as the Great Depression, Jim Crow, etc. Titus Stephens acquired the farm from his master during enslavement, it was passed down to his children, then his grandchildren, and so on. The current resident of the farm is Virginia Seabrook, a descendant of Titus Stephens. They still uphold the sustainable farming practices that have maintained the success of the farm for a long period of time.", year: 2014 },
-        { coords: [33.3205, -82.0843], title: "Richmond County: Thompson Farms", img: "location14.jpg", desc: "Description for Location 14.", year: 2019 },
-        { coords: [32.8888, -82.0535], title: "Burke County: Gough Family Land, LLC.", img: "location15.jpg", desc: "Description for Location 15.", year: 2022 }
-    ];
-
-    // Store marker references
-    var markers = [];
-    var currentPopup = null; // To store the currently open popup
-    let index = 0;
-    let prevIndex = -1;
-
-
-    locations.forEach((loc, idx) => {
-        var marker = L.marker(loc.coords, { icon: yellowIcon }).addTo(map)
-            .bindPopup(`<h3>${loc.title}</h3><img src="${loc.img}" width="100%"><h3>${loc.year}</h3>`);
-
-        marker.on('click', function() {
-            updateTimeline(idx);
-            markers.forEach(markerObj => {
-                markerObj.marker.setIcon(yellowIcon);
-            });
-            marker.setIcon(redIcon);
-
-            if (currentPopup) {
-                currentPopup.remove();
-            }
-
-            marker.openPopup();
-            currentPopup = marker.getPopup(); // Store the current popup
-        });
-
-        markers.push({ year: loc.year, marker: marker });
-    });
-
-    
-    // Timeline Update Logic
-    function moveTimeline(direction) {
-        prevIndex = index;
-        if (direction === 'left') {
-            index--;
-            if (index < 0) {
-                index = locations.length - 1;
-            }
-            
-            
-        } else if (direction === 'right') {
-            index++;
-            if (index == locations.length) {
-                index = 0;
-            }
-        }
-
-        console.log("moving timeline, prevIndex is ", prevIndex);
-        console.log("current index is now ", index);
-        updateTimeline(index);
-    }
-
-    function updateTimeline(currIndex) {
-        document.getElementById('timeline-year').innerText = `Year: ${locations[currIndex].year}`;
-        document.getElementById('timeline-image').src = locations[currIndex].img;
-        document.getElementById('timeline-desc').innerText = locations[currIndex].desc;
-        document.getElementById('timeline-farm-name').innerText = locations[currIndex].title;
-
-        
-        if (prevIndex != -1) {
-            markers[prevIndex].marker.setIcon(yellowIcon);
-        }
-        currMarker = markers[currIndex].marker;
-        console.log("current market we want to open popup of", currMarker);
-        currMarker.setIcon(redIcon);
-        currMarker.openPopup();
-
-        if (currentPopup) {
-            currentPopup.remove();
-        }
-        
-        currentPopup = markers[currIndex].marker.getPopup();
-        index = currIndex;
-    }
-
-    updateTimeline(0);
-</script>
-
+<script src="script.js"></script>
 
 </body>
 </html>
