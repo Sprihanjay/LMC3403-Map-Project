@@ -39,6 +39,7 @@
             <p>Sources: </p>
             <a href="https://dca.georgia.gov/community-assistance/historic-preservation/centennial-farms-program">https://dca.georgia.gov/community-assistance/historic-preservation/centennial-farms-program</a>
             <a href="https://blackfarmersnetwork.com/nourishing-roots-the-enduring-significance-of-centennial-farms/">https://blackfarmersnetwork.com/nourishing-roots-the-enduring-significance-of-centennial-farms/</a>
+            <button id="forward-btn" class="forward-btn">→</button>
         </div>
 
         <!-- Timeline Section -->
@@ -72,6 +73,11 @@
 
     document.getElementById('close-btn').addEventListener('click', function() {
         document.getElementById('container').classList.remove('show');
+        map.setView([32.1574, -82.9071], 7); // Reset to original zoom and center
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('backgrounds-btn').click();
     });
 </script>
 

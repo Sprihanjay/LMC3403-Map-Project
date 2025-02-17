@@ -89,6 +89,15 @@ nav ul li a:hover, nav ul li button:hover {
     cursor: pointer;
 }
 
+.forward-btn {
+    display: block;
+    margin-top: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
 .left-side {
     width: 100%;
     padding: 20px;

@@ -66,28 +66,36 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('container').classList.add('show');
             document.getElementById('background-content').style.display = 'none';
             document.getElementById('timeline-content').style.display = 'block';
+
+            //map.setView(loc.coords, 10); // Zoom in on the marker
         });
 
         markers.push({ year: loc.year, marker: marker });
     });
 
-    // Timeline Update Logic
-    function moveTimeline(direction) {
+    // New function to handle timeline navigation
+    function navigateTimeline(direction) {
         prevIndex = index;
         if (direction === 'left') {
-            index--;
-            if (index < 0) {
-                index = locations.length - 1;
+            const previousLocation = locations.slice(0, index).reverse().find(loc => loc.year < locations[index].year);
+            if (previousLocation) {
+                index = locations.indexOf(previousLocation);
+            } else {
+                document.getElementById('container').classList.remove('show');
+                document.getElementById('background-content').style.display = 'block';
+                document.getElementById('timeline-content').style.display = 'none';
+                map.setView([32.1574, -82.9071], 7); // Reset to original zoom and center
+                return;
             }
         } else if (direction === 'right') {
-            index++;
-            if (index == locations.length) {
-                index = 0;
+            const nextLocation = locations.slice(index + 1).find(loc => loc.year > locations[index].year);
+            if (nextLocation) {
+                index = locations.indexOf(nextLocation);
+            } else {
+                index = 0; // Wrap around to the first location if no higher year is found
             }
         }
 
-        console.log("moving timeline, prevIndex is ", prevIndex);
-        console.log("current index is now ", index);
         updateTimeline(index);
     }
 
@@ -114,4 +122,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     updateTimeline(0);
+
+    document.getElementById('backgrounds-btn').click();
+
+    // Forward button logic
+    document.getElementById('forward-btn').addEventListener('click', function() {
+        const earliestLocation = locations.reduce((earliest, loc) => {
+            return loc.year < earliest.year ? loc : earliest;
+        }, locations[0]);
+
+        const earliestIndex = locations.indexOf(earliestLocation);
+        updateTimeline(earliestIndex);
+        //map.setView(earliestLocation.coords, 10); // Zoom in on the earliest marker
+        document.getElementById('container').classList.add('show');
+        document.getElementById('background-content').style.display = 'none';
+        document.getElementById('timeline-content').style.display = 'block';
+    });
+
+    // Add event listeners for timeline arrows
+    document.querySelector('.timeline-arrow[onclick="moveTimeline(\'left\')"]').addEventListener('click', function() {
+        navigateTimeline('left');
+    });
+
+    document.querySelector('.timeline-arrow[onclick="moveTimeline(\'right\')"]').addEventListener('click', function() {
+        navigateTimeline('right');
+    });
 });
