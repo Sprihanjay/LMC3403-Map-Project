@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     locations.forEach((loc, idx) => {
         var marker = L.marker(loc.coords, { icon: yellowIcon }).addTo(map)
-            .bindPopup(`<h3>${loc.title}</h3><img src="${loc.img}" width="100%"><h3>${loc.year}</h3>`);
+            //.bindPopup(`<h3>${loc.title}</h3><img src="${loc.img}" width="100%"><h3>${loc.year}</h3>`);
 
         marker.on('click', function() {
             updateTimeline(idx);
