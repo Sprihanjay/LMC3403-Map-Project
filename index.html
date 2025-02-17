@@ -9,11 +9,27 @@
 </head>
 <body>
 
-<div class="container">
+<!-- Navbar -->
+<nav>
+    <ul>
+        <li><button id="backgrounds-btn">Backgrounds</button></li>
+        <li><button id="centennial-farms-btn">Centennial Farms</button></li>
+    </ul>
+</nav>
+
+<!-- Map Container -->
+<div class="map-container">
+    <div id="map"></div>
+</div>
+
+<!-- Content Container -->
+<div id="container" class="container">
+    <!-- Close Button -->
+    <button id="close-btn" class="close-btn">×</button>
     <!-- Left Side: Article Section and Timeline Section -->
     <div class="left-side">
-        <!-- Article Section -->
-        <div class="article">
+        <!-- Background Section -->
+        <div class="background" id="background-content">
             <h2>Explore Black-owned farms that received the Centennial Award</h2>
             <p>The Georgia Centennial Farm Program was developed in 1993 to distinguish family farms that have contributed to preserving Georgia's
                 agricultural history. To apply for the award, farms must be at least 100 years old, at least 10 acres, and earn an annual income of at least $1,000. 
@@ -26,7 +42,7 @@
         </div>
 
         <!-- Timeline Section -->
-        <div class="timeline-box">
+        <div class="timeline-box" id="timeline-content">
             <div class="timeline-arrow" onclick="moveTimeline('left')">←</div>
             <div class="timeline-content">
                 <h1 id="timeline-year"></h1>
@@ -37,15 +53,27 @@
             <div class="timeline-arrow" onclick="moveTimeline('right')">→</div>
         </div>
     </div>
-
-    <!-- Right Side: Interactive Map -->
-    <div class="map-container">
-        <div id="map"></div>
-    </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script src="script.js"></script>
+<script>
+    document.getElementById('backgrounds-btn').addEventListener('click', function() {
+        document.getElementById('container').classList.add('show');
+        document.getElementById('background-content').style.display = 'block';
+        document.getElementById('timeline-content').style.display = 'none';
+    });
+
+    document.getElementById('centennial-farms-btn').addEventListener('click', function() {
+        document.getElementById('container').classList.add('show');
+        document.getElementById('background-content').style.display = 'none';
+        document.getElementById('timeline-content').style.display = 'block';
+    });
+
+    document.getElementById('close-btn').addEventListener('click', function() {
+        document.getElementById('container').classList.remove('show');
+    });
+</script>
 
 </body>
 </html>

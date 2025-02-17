@@ -62,6 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             marker.openPopup();
             currentPopup = marker.getPopup(); // Store the current popup
+
+            document.getElementById('container').classList.add('show');
+            document.getElementById('background-content').style.display = 'none';
+            document.getElementById('timeline-content').style.display = 'block';
         });
 
         markers.push({ year: loc.year, marker: marker });
