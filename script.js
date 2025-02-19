@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('map').setView([32.1574, -82.9071], 7); // Georgia coordinates
+    var map = L.map('map').setView([33.1574, -84.9071], 7); // Georgia coordinates
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
