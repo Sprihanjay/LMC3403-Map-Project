@@ -145,9 +145,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('timeline-desc').innerHTML = `${locations[currIndex].desc}<br><br><strong>Sources:</strong> ${locations[currIndex].sources}`;
         document.getElementById('timeline-farm-name').innerText = locations[currIndex].title;
 
-        if (prevIndex != -1) {
-            markers[prevIndex].marker.setIcon(yellowIcon);
-        }
+        markers.forEach((marker, idx) => {
+            if (idx != currIndex) {
+                marker.marker.setIcon(yellowIcon);
+            }
+        });
+
+        // if (prevIndex != -1) {
+        //     markers[prevIndex].marker.setIcon(yellowIcon);
+        // }
         currMarker = markers[currIndex].marker;
         console.log("current market we want to open popup of", currMarker);
         currMarker.setIcon(redIcon);
