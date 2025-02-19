@@ -64,11 +64,11 @@ nav ul li a:hover, nav ul li button:hover {
 
 .container {
     display: flex;
-    width: 30%;
+    width: 40%;
     height: 100%;
     position: fixed;
     top: 0;
-    left: -30%;
+    left: -40%;
     z-index: 200;
     background: white;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
