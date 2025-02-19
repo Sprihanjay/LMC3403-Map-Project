@@ -170,3 +170,65 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+
+.timeline-container {
+    position: absolute;
+    right: 5%;
+    top: 10%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+}
+
+/* Vertical Black Line */
+.timeline-line {
+    position: absolute;
+    width: 3px;
+    background: black;
+    height: 100%;
+    right: 50%;
+    transform: translateX(50%);
+}
+
+/* Timeline Items */
+.timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.timeline li {
+    position: relative;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 14px;
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.timeline li::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    width: 10px;
+    height: 2px;
+    background: black;
+    transform: translateY(-50%);
+}
+
+/* Highlight selected year */
+.timeline li.active {
+    color: red;
+    font-weight: bold;
+}

@@ -38,6 +38,47 @@ document.addEventListener('DOMContentLoaded', function() {
         { coords: [32.8888, -82.0535], title: "Burke County: Gough Family Land, LLC.", img: "images/gough.png", desc: "Description for Location 15.", year: 2022 }
     ];
 
+    // vertical timeline 
+    const timeline = document.querySelector(".timeline");
+
+    // Years for timeline
+    const years = [1995, 2000, 2005, 2010, 2015, 2020, 2025];
+
+    // Generate timeline items
+    years.forEach(year => {
+        const li = document.createElement("li");
+        li.textContent = year;
+        li.dataset.year = year;
+        timeline.appendChild(li);
+    });
+
+    timeline.addEventListener("click", function (e) {
+        if (e.target.tagName === "LI") {
+            const selectedYear = e.target.dataset.year;
+
+            // Reset all timeline items
+            document.querySelectorAll(".timeline li").forEach(item => {
+                item.classList.remove("active");
+            });
+            e.target.classList.add("active");
+
+            // Update farm colors
+            locations.forEach((loc, idx) => {
+                if (Array.isArray(loc.year)) {
+                    if (loc.year[0] <= selectedYear || loc.year[1] <= selectedYear) {
+                        markers[idx].marker.setIcon(redIcon)
+                    } else {
+                        markers[idx].marker.setIcon(yellowIcon)
+                    }
+                } else if (loc.year <= selectedYear) {
+                    markers[idx].marker.setIcon(redIcon)
+                } else {
+                    markers[idx].marker.setIcon(yellowIcon)
+                }
+            });
+        }
+    });
+
     // Store marker references
     var markers = [];
     var currentPopup = null; // To store the currently open popup
@@ -120,6 +161,8 @@ document.addEventListener('DOMContentLoaded', function() {
         index = currIndex;
     }
 
+    
+
     updateTimeline(0);
 
     document.getElementById('backgrounds-btn').click();
@@ -146,4 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.timeline-arrow[onclick="moveTimeline(\'right\')"]').addEventListener('click', function() {
         navigateTimeline('right');
     });
+
+
+
 });
